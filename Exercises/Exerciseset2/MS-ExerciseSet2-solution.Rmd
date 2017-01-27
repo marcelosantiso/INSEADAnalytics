@@ -347,4 +347,4 @@ show_data = round(pnl_matrix(sample_strategy),2)
 iprint.df(show_data)
 ```
 
-As always, **have fun** 
+As always, **have fun**
