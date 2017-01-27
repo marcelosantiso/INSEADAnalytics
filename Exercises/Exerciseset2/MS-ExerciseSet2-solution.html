@@ -6438,22 +6438,21 @@ Rotated_Factors[abs(Rotated_Factors) &lt; 0.3] &lt;- NA
 <p><strong>Answers</strong></p>
 
 <ol>
-<li>You need 6 components (&quot;factors&quot;) to explain at least 50% of the variance in this data? In fact, 6 components will explain 52.29% of the variance.</li>
+<li>6 components (&quot;factors&quot;) explain at least 50% (52.29%) of the variance of the dataset.</li>
 <li>5 yr T-Notes US (0.93); 10yr T-Notes (0.93); Treasury Bonds (0.86); 2 yr T-Note US (0.85); Canadian Bond (0.79) </li>
-<li>Can we interpret the first 10 components? How would you call these factors?
-The first 10 components explain 62.61% of the variance and can be called principal components:
+<li>The first 10 components explain 62.61% of the variance and could be called:
 <strong>Factor 1</strong> Government bonds
 <strong>Factor 2</strong> FX
-<strong>Factor 3</strong> EU - stock indices
-<strong>Factor 4</strong> North-Amercican - stock indices
+<strong>Factor 3</strong> Stock indices (EU)
+<strong>Factor 4</strong> Stock indices (North-Amercican)
 <strong>Factor 5</strong> Euro-bonds and interest rates
 <strong>Factor 6</strong> Oil
 <strong>Factor 7</strong> Metals (excl. noble metals)
-<strong>Factor 8</strong> Foods
+<strong>Factor 8</strong> Food
 <strong>Factor 9</strong> Gold and sliver
 <strong>Factor 10</strong> Asian - stock indices</li>
-<li>Please see the seperate sections belof for the principal components and scree plot of the the pre-crisis bull market years (November 1, 2002, and October 1, 2007) and the financial crisis years ( October 1, 2007 and  March 1, 2009)</li>
-<li>In the bull market more components make up the line before the elbow in the scree chart, more components influence the market. You can see for example that component 1 is less significant compared with the average over all the years. In the bear market you need only the first 4 components to explain 50% of the variance. Also, the correlation between futures increased.</li>
+<li>In the seperate sections below the principal components and screen plot of the the pre-crisis bull market years are plot (November 1, 2002, and October 1, 2007) and the financial crisis years ( October 1, 2007 and  March 1, 2009)</li>
+<li>In the bull market more components make up the line before the elbow in the scree chart, more components influence the market. It can be seen for example that component 1 is less significant compared with the average over all the years. In the bear market you need only the first 4 components to explain 50% of the variance. Also, the correlation between futures increased.</li>
 </ol>
 
 <h2><strong>Tables corresponding to crisis data</strong></h2>
@@ -10641,8 +10640,8 @@ names(trading_strategy) &lt;- rownames(futures_data)
 <p><strong>Answers</strong></p>
 
 <ol>
-<li>The first lines first set the signal to zero, and then define a frequency (which will be used later to calculate the moving averages). Next, the moving average (function &#39;ma&#39;) is used, over a window we defined with the frequency above. The output of this function is a signal, which is given by the sign of the output (negative, neutral, positive). The weight of each signal is calculated, by scaling the sum across all the futures, so that the total sum is 1. Then, the investment strategy is applied: we invest by applying the weights we calculated 2 days ago to the futures.</li>
-<li>The command line MAfreq&lt;-seq(10,250,by=20), affects how often the trading strategy is implemented, it affects the frequency. If you use a higher frequency, the strategy becomes less sensitive, returns are reduced, and DD is increased. </li>
+<li>The first lines set the signal to zero, and then define a frequency (which will be used later to calculate the moving averages). Next, the moving average (function &#39;ma&#39;) is used, over a defined window with the frequency above. The output of this function is a signal, which is given by the sign of the output (negative, neutral, positive). The weight of each signal is calculated by scaling the sum across all the futures, so that the total sum is 1. Then, the investment strategy is applied: we invest by applying the weights we calculated 2 days ago to the futures.</li>
+<li>The command line MAfreq&lt;-seq(10,250,by=20), affects how often the trading strategy is implemented, it affects the frequency. If a higher frequency is used, the strategy becomes less sensitive, returns are reduced, and DD is increased. </li>
 </ol>
 
 <h1>A class competition</h1>
@@ -10920,6 +10919,8 @@ names(trading_strategy) &lt;- rownames(futures_data)
 </table></div>&lt;!--/html_preserve--&gt;</p>
 
 <p>As always, <strong>have fun</strong></p>
+
+<p>Thanks! :)</p>
 
   </article>
   <!-- Presenter Notes -->
