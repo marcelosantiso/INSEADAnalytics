@@ -158,18 +158,113 @@ iprint.df(show_data, scale=TRUE)
 5. Based on your analysis in question 3, please discuss any differences you observe about the futures returns during  bull and bear markets.  What implications may these results have? What do the results imply about how assets are correlated during bear years compared to bull years? 
 
 **Answers**
-1. 
 
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
+1. You need 6 components ("factors") to explain at least 50% of the variance in this data? In fact, 6 components will explain 52.29% of the variance.
+2. 5 yr T-Notes US (0.93); 10yr T-Notes (0.93); Treasury Bonds (0.86); 2 yr T-Note US (0.85); Canadian Bond (0.79) 
+3. Can we interpret the first 10 components? How would you call these factors?
+The first 10 components explain 62.61% of the variance and can be called principal components:
+**Factor 1** Government bonds
+**Factor 2** FX
+**Factor 3** EU - stock indices
+**Factor 4** North-Amercican - stock indices
+**Factor 5** Euro-bonds and interest rates
+**Factor 6** Oil
+**Factor 7** Metals (excl. noble metals)
+**Factor 8** Foods
+**Factor 9** Gold and sliver
+**Factor 10** Asian - stock indices
+4. Please see the seperate sections belof for the principal components and scree plot of the the pre-crisis bull market years (November 1, 2002, and October 1, 2007) and the financial crisis years ( October 1, 2007 and  March 1, 2009)
+5. In the bull market more components make up the line before the elbow in the scree chart, more components influence the market. You can see for example that component 1 is less significant compared with the average over all the years. In the bear market you need only the first 4 components to explain 50% of the variance. Also, the correlation between futures increased.
+
+## **Tables corresponding to crisis data**
+
+**Variance**
+```{r echo=TRUE}
+crisis_data <- futures_data[ as.Date(rownames(futures_data)) > "2007-10-01" & as.Date(rownames(futures_data))< "2009-03-01" , ]
+Variance_Explained_Table_results<-PCA(crisis_data, graph=FALSE)
+Variance_Explained_Table<-Variance_Explained_Table_results$eig
+colnames(Variance_Explained_Table)<-c("Eigenvalue", 
+  "Pct of explained variance", "Cumulative pct of explained variance")
+```
+
+```{r}
+show_data = round(Variance_Explained_Table, 2)
+iprint.df(show_data)
+```
+
+**Scree plot**
+```{r echo=TRUE}
+eigenvalues  <- Variance_Explained_Table[, "Eigenvalue"]
+```
+
+```{r}
+df           <- cbind(as.data.frame(eigenvalues), c(1:length(eigenvalues)), rep(1, length(eigenvalues)))
+colnames(df) <- c("eigenvalues", "components", "abline")
+iplot.df(melt(df, id="components"))
+```
+
+**Principal components**
+```{r echo=TRUE, tidy=TRUE}
+corused = cor(futures_data[,apply(futures_data!=0,2,sum) > 10, drop=F])
+Rotated_Results<-principal(corused, nfactors=20, rotate="varimax",score=TRUE)
+Rotated_Factors<-round(Rotated_Results$loadings,2)
+Rotated_Factors<-as.data.frame(unclass(Rotated_Factors))
+colnames(Rotated_Factors)<-paste("comp",1:ncol(Rotated_Factors),sep=" ")
+
+sorted_rows <- sort(Rotated_Factors[,1], decreasing = TRUE, index.return = TRUE)$ix
+Rotated_Factors <- Rotated_Factors[sorted_rows,]
+Rotated_Factors[abs(Rotated_Factors) < 0.3]<-NA
+```
+
+```{r}
+show_data <- Rotated_Factors 
+iprint.df(show_data, scale=TRUE)
+```
+
+## **Tables corresponding to bull data**
+
+**Variance**
+```{r echo=TRUE}
+bull_data <- futures_data[ as.Date(rownames(futures_data)) > "2002-11-01" & as.Date(rownames(futures_data))< "2007-10-01" , ]
+Variance_Explained_Table_results<-PCA(bull_data, graph=FALSE)
+Variance_Explained_Table<-Variance_Explained_Table_results$eig
+colnames(Variance_Explained_Table)<-c("Eigenvalue", 
+  "Pct of explained variance", "Cumulative pct of explained variance")
+```
+
+```{r}
+show_data = round(Variance_Explained_Table, 2)
+iprint.df(show_data)
+```
+
+**Scree plot**
+```{r echo=TRUE}
+eigenvalues  <- Variance_Explained_Table[, "Eigenvalue"]
+```
+
+```{r}
+df           <- cbind(as.data.frame(eigenvalues), c(1:length(eigenvalues)), rep(1, length(eigenvalues)))
+colnames(df) <- c("eigenvalues", "components", "abline")
+iplot.df(melt(df, id="components"))
+```
+
+**Principal components**
+```{r echo=TRUE, tidy=TRUE}
+corused = cor(futures_data[,apply(futures_data!=0,2,sum) > 10, drop=F])
+Rotated_Results<-principal(corused, nfactors=20, rotate="varimax",score=TRUE)
+Rotated_Factors<-round(Rotated_Results$loadings,2)
+Rotated_Factors<-as.data.frame(unclass(Rotated_Factors))
+colnames(Rotated_Factors)<-paste("comp",1:ncol(Rotated_Factors),sep=" ")
+
+sorted_rows <- sort(Rotated_Factors[,1], decreasing = TRUE, index.return = TRUE)$ix
+Rotated_Factors <- Rotated_Factors[sorted_rows,]
+Rotated_Factors[abs(Rotated_Factors) < 0.3]<-NA
+```
+
+```{r}
+show_data <- Rotated_Factors 
+iprint.df(show_data, scale=TRUE)
+```
 
 # A Simple Futures Trend Following Strategy
 
@@ -231,16 +326,8 @@ How does this compare with **existing CTA products** such as [this one from Soci
 
 **Answers**
 
-*
-*
-*
-*
-*
-*
-*
-*
-*
-*
+1. The first lines first set the signal to zero, and then define a frequency (which will be used later to calculate the moving averages). Next, the moving average (function 'ma') is used, over a window we defined with the frequency above. The output of this function is a signal, which is given by the sign of the output (negative, neutral, positive). The weight of each signal is calculated, by scaling the sum across all the futures, so that the total sum is 1. Then, the investment strategy is applied: we invest by applying the weights we calculated 2 days ago to the futures.
+2. The command line MAfreq<-seq(10,250,by=20), affects how often the trading strategy is implemented, it affects the frequency. If you use a higher frequency, the strategy becomes less sensitive, returns are reduced, and DD is increased. 
 
 # A class competition
 
@@ -261,8 +348,3 @@ iprint.df(show_data)
 ```
 
 As always, **have fun** 
-
-
-
-
-
