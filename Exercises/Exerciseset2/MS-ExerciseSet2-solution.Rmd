@@ -158,6 +158,7 @@ iprint.df(show_data, scale=TRUE)
 5. Based on your analysis in question 3, please discuss any differences you observe about the futures returns during  bull and bear markets.  What implications may these results have? What do the results imply about how assets are correlated during bear years compared to bull years? 
 
 **Answers**
+1. 
 
 *
 *
