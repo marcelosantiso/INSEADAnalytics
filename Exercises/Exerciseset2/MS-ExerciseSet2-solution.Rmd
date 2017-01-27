@@ -159,22 +159,21 @@ iprint.df(show_data, scale=TRUE)
 
 **Answers**
 
-1. You need 6 components ("factors") to explain at least 50% of the variance in this data? In fact, 6 components will explain 52.29% of the variance.
+1. 6 components ("factors") explain at least 50% (52.29%) of the variance of the dataset.
 2. 5 yr T-Notes US (0.93); 10yr T-Notes (0.93); Treasury Bonds (0.86); 2 yr T-Note US (0.85); Canadian Bond (0.79) 
-3. Can we interpret the first 10 components? How would you call these factors?
-The first 10 components explain 62.61% of the variance and can be called principal components:
+3. The first 10 components explain 62.61% of the variance and could be called:
 **Factor 1** Government bonds
 **Factor 2** FX
-**Factor 3** EU - stock indices
-**Factor 4** North-Amercican - stock indices
+**Factor 3** Stock indices (EU)
+**Factor 4** Stock indices (North-Amercican)
 **Factor 5** Euro-bonds and interest rates
 **Factor 6** Oil
 **Factor 7** Metals (excl. noble metals)
-**Factor 8** Foods
+**Factor 8** Food
 **Factor 9** Gold and sliver
 **Factor 10** Asian - stock indices
-4. Please see the seperate sections belof for the principal components and scree plot of the the pre-crisis bull market years (November 1, 2002, and October 1, 2007) and the financial crisis years ( October 1, 2007 and  March 1, 2009)
-5. In the bull market more components make up the line before the elbow in the scree chart, more components influence the market. You can see for example that component 1 is less significant compared with the average over all the years. In the bear market you need only the first 4 components to explain 50% of the variance. Also, the correlation between futures increased.
+4. In the seperate sections below the principal components and screen plot of the the pre-crisis bull market years are plot (November 1, 2002, and October 1, 2007) and the financial crisis years ( October 1, 2007 and  March 1, 2009)
+5. In the bull market more components make up the line before the elbow in the scree chart, more components influence the market. It can be seen for example that component 1 is less significant compared with the average over all the years. In the bear market you need only the first 4 components to explain 50% of the variance. Also, the correlation between futures increased.
 
 ## **Tables corresponding to crisis data**
 
@@ -326,8 +325,8 @@ How does this compare with **existing CTA products** such as [this one from Soci
 
 **Answers**
 
-1. The first lines first set the signal to zero, and then define a frequency (which will be used later to calculate the moving averages). Next, the moving average (function 'ma') is used, over a window we defined with the frequency above. The output of this function is a signal, which is given by the sign of the output (negative, neutral, positive). The weight of each signal is calculated, by scaling the sum across all the futures, so that the total sum is 1. Then, the investment strategy is applied: we invest by applying the weights we calculated 2 days ago to the futures.
-2. The command line MAfreq<-seq(10,250,by=20), affects how often the trading strategy is implemented, it affects the frequency. If you use a higher frequency, the strategy becomes less sensitive, returns are reduced, and DD is increased. 
+1. The first lines set the signal to zero, and then define a frequency (which will be used later to calculate the moving averages). Next, the moving average (function 'ma') is used, over a defined window with the frequency above. The output of this function is a signal, which is given by the sign of the output (negative, neutral, positive). The weight of each signal is calculated by scaling the sum across all the futures, so that the total sum is 1. Then, the investment strategy is applied: we invest by applying the weights we calculated 2 days ago to the futures.
+2. The command line MAfreq<-seq(10,250,by=20), affects how often the trading strategy is implemented, it affects the frequency. If a higher frequency is used, the strategy becomes less sensitive, returns are reduced, and DD is increased. 
 
 # A class competition
 
@@ -348,3 +347,5 @@ iprint.df(show_data)
 ```
 
 As always, **have fun**
+
+Thanks! :)
